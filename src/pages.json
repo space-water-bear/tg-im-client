@@ -1,0 +1,75 @@
+{
+	"pages": [
+		{
+			"name": "home",
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		{
+			"name": "contact",
+			"path" : "pages/contact/contact",
+			"style" : 
+			{
+				"navigationBarTitleText" : "通信录"
+			}
+		},
+		{
+			"name": "settings",
+			"path" : "pages/settings/settings",
+			"style" : 
+			{
+				"navigationBarTitleText" : "设置"
+			}
+		},
+		{
+			"name": "login",
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		}
+	],
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#00BE8C",
+		"borderStyle": "black",
+		"backgroundColor": "#F7F7F7",
+		"list": [
+			{
+				"pagePath": "pages/contact/contact",
+				"text": "通讯录",
+				"iconPath": "static/images/icons/contacts.svg",
+				"selectedIconPath": "static/images/icons/contacts-fill.svg"
+				
+			},
+			{
+				"pagePath": "pages/index/index",
+			    "text": "消息",
+				"iconPath": "static/images/icons/chat.svg",
+				"selectedIconPath": "static/images/icons/chat-fill.svg"
+			},
+			{
+				"pagePath": "pages/settings/settings",
+			    "text": "设置",
+				"iconPath": "static/images/icons/settings.svg",
+				"selectedIconPath": "static/images/icons/settings-fill.svg"
+			}
+		]
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uv-(.*)": "@climblee/uv-ui/components/uv-$1/uv-$1.vue",
+			"^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
+		}
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "space water bear",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
