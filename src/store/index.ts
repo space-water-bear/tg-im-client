@@ -8,7 +8,8 @@ interface AuthStore {
   // 鉴权令牌
   userInfo: UserInfo | null
   token: string
-  expired: number
+  expired: number,
+  sse: EventSource | null
 }
 // defineStore 调用后返回一个函数，调用该函数获得 Store 实体
 export const useAuthStore = defineStore('authState', {
@@ -16,7 +17,8 @@ export const useAuthStore = defineStore('authState', {
   state: (): AuthStore => ({
     userInfo: null,
 	  token: '',
-    expired: 0
+    expired: 0,
+    sse: null as EventSource | null
   }),
   getters: {},
   actions: {
@@ -43,6 +45,27 @@ export const useAuthStore = defineStore('authState', {
       this.userInfo = null
       this.token = ''
       this.expired = 0
+      this.destroySSE()
+    },
+    initSSE() {
+      if(!this.sse && this.token) {
+        this.sse = new EventSource(`${import.meta.env.BASE_URL}/sse`)
+
+        this.sse.addEventListener('message', (event) => {
+          console.log('sse message', event.data)
+        })
+
+        this.sse.addEventListener('error', (event) => {
+          console.log('sse error', event)
+        })
+      }
+
+    },
+    destroySSE() {
+      if(this.sse) {
+        this.sse.close()
+        this.sse = null
+      }
     }
   }
 })

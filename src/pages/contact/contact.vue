@@ -17,7 +17,8 @@
 </template>
 
 <script lang="ts" setup>
-	import { ref } from 'vue'
+	import { ref, onMounted } from "vue";
+	import { getList } from "@/apis/friends";
 	const dataList = ref([
 		{
 			index: 'A',
