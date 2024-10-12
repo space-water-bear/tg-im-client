@@ -4,6 +4,8 @@ import type UserInfo from '@/model/UserInfo'
 
 import { login, type LoginParams } from "@/apis/login"
 
+// import { inflateMessage } from "@/utils/msg"
+
 interface AuthStore {
   // 鉴权令牌
   userInfo: UserInfo | null
@@ -30,6 +32,7 @@ export const useAuthStore = defineStore('authState', {
 
           this.token = data.token
           this.expired = data.expired
+          this.initSSE()
           return true
         } else {
           console.log("登陆失败: " + msg)
@@ -49,7 +52,7 @@ export const useAuthStore = defineStore('authState', {
     },
     initSSE() {
       if(!this.sse && this.token) {
-        this.sse = new EventSource(`${import.meta.env.BASE_URL}/sse`)
+        this.sse = new EventSource(`${import.meta.env.VITE_BASEURL}/sse?token=${this.token}`)
 
         this.sse.addEventListener('message', (event) => {
           console.log('sse message', event.data)
@@ -62,7 +65,8 @@ export const useAuthStore = defineStore('authState', {
 
     },
     destroySSE() {
-      if(this.sse) {
+      if(this.sse !== null) {
+        console.log(this.sse)
         this.sse.close()
         this.sse = null
       }
